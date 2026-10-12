@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE" ]]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+usage() {
+  cat <<EOF
+FrameFlow 命令：
+  vimax tui                         继续当前项目
+  vimax tui new                     创建并打开新项目
+  vimax tui resume                  继续当前项目
+  vimax tui resume <session_id>     继续指定项目
+  vimax tui --new-session           等同于： vimax tui new
+  vimax tui --session <session_id>  等同于： vimax tui resume <session_id>
+  vimax web                         启动 FrameFlow 本地开发界面
+  vimax web start                   启动 FrameFlow 已构建界面
+EOF
+}
+
+if [[ $# -lt 1 ]]; then
+  usage
+  exit 2
+fi
+
+command="$1"
+shift
+
+case "$command" in
+  web)
+    web_mode="${1:-dev}"
+    if [[ "$web_mode" == "start" ]]; then
+      shift
+    elif [[ "$web_mode" != "dev" ]]; then
+      echo "错误：未知的界面启动模式： $web_mode" >&2
+      usage >&2
+      exit 2
+    fi
+    if [[ ! -x "$ROOT/web/node_modules/.bin/vite" ]]; then
+      echo "错误：缺少界面依赖。请运行： cd $ROOT/web && npm install" >&2
+      exit 2
+    fi
+    if [[ "$web_mode" == "start" ]]; then
+      if [[ ! -f "$ROOT/web/dist/index.html" ]]; then
+        echo "错误：尚未构建界面。请运行： cd $ROOT/web && npm run build" >&2
+        exit 2
+      fi
+      exec npm --prefix "$ROOT/web" run start
+    fi
+    exec npm --prefix "$ROOT/web" run dev
+    ;;
+  tui)
+    tui_args=()
+    case "${1:-}" in
+      new)
+        tui_args+=("--new-session")
+        shift
+        ;;
+      resume|old)
+        shift
+        if [[ -n "${1:-}" && "${1:-}" != --* ]]; then
+          tui_args+=("--session" "$1")
+          shift
+        fi
+        ;;
+      --new-session)
+        tui_args+=("--new-session")
+        shift
+        ;;
+      --session)
+        if [[ -z "${2:-}" ]]; then
+          echo "错误：--session 需要指定项目编号" >&2
+          exit 2
+        fi
+        tui_args+=("--session" "$2")
+        shift 2
+        ;;
+      "")
+        ;;
+      --help|-h|help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "错误：未知的终端界面模式： $1" >&2
+        usage >&2
+        exit 2
+        ;;
+    esac
+    if [[ $# -gt 0 ]]; then
+      tui_args+=("$@")
+    fi
+    if [[ ! -x "$ROOT/ui/node_modules/.bin/tsx" ]]; then
+      echo "错误：缺少终端界面依赖。请运行： cd $ROOT/ui && npm install" >&2
+      exit 2
+    fi
+    exec "$ROOT/ui/node_modules/.bin/tsx" "$ROOT/ui/src/cli.tsx" ${tui_args[@]+"${tui_args[@]}"}
+    ;;
+  --help|-h|help)
+    usage
+    ;;
+  *)
+    echo "错误：未知命令： $command" >&2
+    usage >&2
+    exit 2
+    ;;
+esac

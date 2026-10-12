@@ -1,0 +1,312 @@
+/* A coordinated light gray palette, matched by the native solid panels. */
+:root, html[data-theme='light'], html[data-theme='dark'] {
+  --canvas: #e8eaed;
+  --sidebar: #e8eaed;
+  --surface: #f1f2f4;
+  --surface-soft: #dee1e5;
+  --ink: #25282d;
+  --muted: #626770;
+  --faint: #737983;
+  --line: #d0d4da;
+  --line-strong: #b8bec7;
+  --primary: #4b5058;
+  --primary-ink: #fff;
+  --primary-hover: #373c43;
+  --blue: var(--ink);
+  --cyan: var(--ink);
+  --magenta: var(--ink);
+  --green: var(--ink);
+  --amber: var(--muted);
+  --orange: var(--amber);
+  --red: var(--ink);
+  --glass: var(--canvas);
+  --glass-rim: var(--line);
+  --glass-highlight: transparent;
+  --glass-shadow: rgba(0, 0, 0, .1);
+  --panel: #f1f2f4;
+  --field: #f7f8fa;
+  color: var(--ink);
+  background: var(--canvas);
+}
+body { color: var(--ink); }
+.glass-app {
+  isolation: isolate;
+  position: relative;
+  padding: 18px 20px 18px 18px;
+  gap: 20px;
+  min-height: 0;
+  background: var(--surface-soft);
+}
+.glass-app::before { display: none; }
+.capsule-rail, .capsule-dock {
+  border: 1px solid var(--glass-rim);
+  background: var(--glass);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 8px 24px var(--glass-shadow);
+}
+.capsule-rail {
+  align-self: center; position: relative; z-index: 30;
+  display: flex; flex: 0 0 78px; flex-direction: column; width: 78px;
+  max-height: calc(100% - 32px); padding: 17px 8px 13px; border-radius: 44px;
+}
+.capsule-nav.primary-nav { padding: 0; gap: 7px; }
+.capsule-nav.primary-nav button { flex-direction: column; gap: 7px; padding: 10px 1px; min-height: 63px; border-radius: 26px; color: var(--muted); text-align: center; font-size: 11px; font-weight: 650; justify-content: center; }
+.capsule-nav.primary-nav button:hover { color: var(--ink); background: color-mix(in srgb, var(--surface) 64%, transparent); }
+.capsule-nav.primary-nav button.is-active { color: var(--ink); background: var(--surface); box-shadow: 0 2px 8px var(--glass-shadow), inset 0 1px 0 var(--glass-rim); }
+.capsule-nav.primary-nav .capsule-new-project { border-top: 1px solid var(--line); border-radius: 0 0 26px 26px; margin-top: 9px; padding-top: 16px; font-size: 10px; }
+.glass-workspace.workspace-main { border: 0; border-radius: 0; background: var(--canvas); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; overflow: hidden; min-height: 0; }
+.glass-header.workspace-header { position: relative; z-index: 25; flex-shrink: 0; min-height: 62px; padding: 12px 24px; gap: 16px; background: transparent; border: 0; }
+.project-switcher { position: relative; min-width: 0; max-width: 46%; }
+.project-switcher-button, .glass-assistant-button { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); padding: 8px 10px; border: 1px solid transparent; border-radius: 12px; background: transparent; cursor: pointer; font-size: 13px; font-weight: 600; }
+.project-switcher-button { max-width: 100%; }
+.project-switcher-button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-switcher-button svg { flex-shrink: 0; }
+.project-switcher-button:hover, .glass-assistant-button:hover, .glass-assistant-button.is-active { background: var(--surface); border-color: var(--line); }
+.glass-page-label { margin-right: auto; padding-left: 16px; border-left: 1px solid var(--line-strong); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.glass-header-actions { display: flex; flex-shrink: 0; align-items: center; gap: 12px; }
+.glass-app .icon-button { color: var(--muted); width: 36px; height: 36px; flex-basis: 36px; border-radius: 50%; }
+.glass-app .icon-button:hover { color: var(--ink); background: var(--surface); }
+.project-menu-scrim { position: fixed; inset: 0; z-index: 48; border: 0; background: transparent; cursor: default; }
+.project-menu { position: absolute; z-index: 49; top: 48px; left: 0; width: min(340px, calc(100vw - 140px)); padding: 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 16px 45px var(--glass-shadow); border-radius: 20px; }
+.project-menu > header { display: flex; align-items: center; justify-content: space-between; padding-left: 8px; font-size: 14px; }
+.project-menu .session-list { max-height: min(360px, 55vh); padding: 8px 0; }
+.project-menu .session-item { border-radius: 10px; }
+.project-menu .session-item:hover, .project-menu .session-item.is-selected { background: var(--surface-soft); }
+.project-menu .session-copy strong { color: var(--ink); font-size: 13px; }
+.project-menu .session-copy small { color: var(--muted); font-size: 11px; }
+.project-menu .session-delete { color: var(--muted); }
+.project-menu .session-delete:hover { color: var(--red); background: var(--surface); }
+.project-menu-new { display: flex; width: 100%; min-height: 40px; align-items: center; gap: 9px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--surface-soft); font-size: 13px; cursor: pointer; }
+.glass-content { display: flex; flex: 1; min-width: 0; min-height: 0; overflow: hidden; }
+.glass-content > * { min-width: 0; }
+.glass-content .director-view { background: transparent; }
+.glass-content .director-header { border-bottom: 0; padding: 10px 28px 18px; min-height: 78px; }
+.glass-content .director-header h1 { font-size: 27px; font-weight: 650; letter-spacing: -.7px; }
+.glass-content .director-eyebrow { color: var(--muted); font-size: 11px; }
+.glass-content .director-project-settings { background: transparent; margin: 0 24px; padding: 12px 0 17px; border-top: 1px solid var(--line); }
+.glass-content .director-project-settings label { font-size: 12px; }
+.glass-content .director-service-note { margin: 0 24px; padding: 10px 0; font-size: 12px; }
+.glass-content .director-stage-column { padding: 22px 26px; }
+.glass-content .director-inspector { margin: 20px 22px 14px 0; padding: 20px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); }
+.glass-content .director-workspace { grid-template-columns: minmax(0, 1fr) 318px; }
+.glass-content .director-preview { border-radius: 22px; }
+.glass-content .director-stage-head strong, .glass-content .director-inspector-head strong { font-size: 15px; }
+.glass-content .director-field { color: var(--muted); font-size: 12px; }
+.glass-content .director-view input, .glass-content .director-view select, .glass-content .director-view textarea { background: var(--field); color: var(--ink); font-size: 13px; border-radius: 10px; }
+.glass-content .director-button { border-radius: 12px; min-height: 36px; font-size: 12px; }
+.glass-content .director-button.primary, .capsule-dock .director-button.primary { color: var(--primary-ink); background: var(--primary); border-color: var(--primary); }
+.glass-content .director-shot-cell { min-width: 128px; border-radius: 14px; background: var(--panel); }
+.glass-content .director-shot-cell strong { font-size: 12px; }
+.glass-content .director-shot-cell > span { font-size: 11px; }
+.glass-content .director-timeline-empty { background: var(--panel); border-radius: 18px; }
+.glass-content .director-text-button { font-size: 12px; }
+.glass-content .director-frame-slot { background: var(--surface-soft); border-radius: 12px; }
+.glass-content .director-view ::placeholder, .glass-app .capsule-dock ::placeholder { color: var(--faint); opacity: 1; }
+.glass-content .settings-view { padding: 18px clamp(24px, 4vw, 60px) 40px; }
+.glass-content .settings-view h1 { font-size: 27px; }
+.glass-content .executor-settings { padding: 24px 26px; border-radius: 24px; background: var(--panel); max-width: 1000px; }
+.glass-content .executor-summary-row { padding: 21px 0; }
+.glass-content .executor-summary-title h3 { font-size: 15px; }
+.glass-content .executor-summary-title p, .glass-content .executor-summary-selection small, .glass-content .executor-professional summary { font-size: 12px; }
+.glass-content .executor-summary-selection strong { font-size: 14px; }
+.glass-content .executor-button { min-height: 38px; border-radius: 12px; }
+.glass-content .novel-retrieval-panel { background: var(--surface-soft); border-radius: 16px; }
+.glass-content .local-agents-settings, .glass-content .model-presets { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+.glass-content .config-fields input, .executor-dialog .config-fields input, .executor-dialog select { color: var(--ink); background: var(--field); font-size: 13px; border-radius: 10px; }
+.glass-content .artifacts-view { background: transparent; padding: 20px 30px 36px; }
+.glass-content .artifact-browser, .glass-content .render-item { border-radius: 20px; background: var(--panel); }
+.glass-content .artifact-document-list { background: var(--surface-soft); }
+.glass-content .artifact-document-list button { color: var(--ink); }
+.glass-content .artifacts-empty { color: var(--muted); }
+.glass-content .conversation { background: transparent; }
+.glass-content .message-stream { padding-top: 24px; padding-bottom: 30px; }
+.glass-content .message-body { color: var(--ink); }
+.glass-content .role-user .message-body { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
+.glass-content .empty-state { padding-bottom: 20px; }
+.glass-content .empty-state h1 { color: var(--ink); }
+.assistant-welcome-icon { display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; margin-bottom: 20px; color: var(--blue); border: 1px solid var(--line); border-radius: 22px; background: var(--panel); }
+.assistant-welcome-description { margin: 14px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; text-align: center; }
+.editor-project-empty { display: flex; flex: 1; align-items: center; justify-content: center; flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
+.editor-project-empty > svg { color: var(--muted); }
+.editor-project-empty h1 { margin: 0; font-size: 28px; }
+.editor-project-empty p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.capsule-dock-slot { position: relative; z-index: 22; display: flex; justify-content: center; flex-shrink: 0; min-height: 92px; padding: 10px 20px 18px; }
+.capsule-dock { position: relative; display: flex; width: 100%; min-width: 0; min-height: 64px; align-items: center; gap: 14px; padding: 10px 15px; border-radius: 40px; color: var(--ink); }
+.capsule-playback { display: flex; flex: 0 1 210px; align-items: center; gap: 10px; min-width: 0; padding-right: 14px; border-right: 1px solid var(--line-strong); }
+.capsule-command { display: flex; min-width: 0; flex: 1; align-items: center; gap: 9px; }
+.capsule-command input:not([type='range']), .capsule-command textarea, .capsule-command select { min-width: 0; min-height: 40px; color: var(--ink); background: var(--field); border: 1px solid var(--line-strong); border-radius: 13px; padding: 9px 12px; font-size: 13px; }
+.capsule-command input:not([type='range']), .capsule-command textarea { width: 100%; flex: 1; }
+.capsule-command textarea { resize: none; line-height: 1.55; max-height: 80px; box-sizing: content-box; padding: 8px 12px; min-height: 24px; }
+.capsule-command select { max-width: 145px; }
+.assistant-draft-field { flex: 1; min-width: 0; }
+.capsule-command .assistant-draft-field textarea { display: block; width: 100%; box-sizing: border-box; min-height: 42px; padding: 9px 12px; }
+.assistant-dock .capsule-command { align-items: flex-start; }
+.assistant-dock .dock-executor-button { min-height: 42px; }
+.assistant-prompt-hints { height: 18px; margin: 5px 4px 0; overflow: hidden; color: var(--muted); font-size: 11px; line-height: 18px; }
+.assistant-prompt-example { display: flex; align-items: center; gap: 7px; max-width: 100%; padding: 0; overflow: hidden; color: inherit; border: 0; background: transparent; font: inherit; line-height: inherit; cursor: pointer; text-align: left; }
+.assistant-prompt-example:hover { color: var(--blue); }
+.assistant-prompt-prefix, .assistant-prompt-example svg { flex-shrink: 0; }
+.assistant-prompt-text { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; animation: assistant-hint-in .35s ease both; }
+@keyframes assistant-hint-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.capsule-actions { display: flex; flex: 0 0 auto; min-width: 0; align-items: center; gap: 8px; }
+.capsule-dock button, .capsule-dock a { flex-shrink: 0; }
+.capsule-dock .director-button { min-height: 40px; padding: 8px 12px; border-radius: 20px; white-space: nowrap; }
+.capsule-dock .director-icon-button, .dock-icon-button { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; padding: 0; color: var(--ink); border: 1px solid var(--line); border-radius: 50%; background: var(--surface); cursor: pointer; }
+.capsule-dock button:disabled { opacity: .48; cursor: default; }
+.capsule-dock input[type='range'] { min-width: 0; width: 100%; accent-color: var(--blue); }
+.dock-executor-button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 3px; max-width: 154px; color: var(--ink); font-size: 12px; font-weight: 600; border: 0; background: transparent; cursor: pointer; }
+.dock-executor-button span { min-width: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.dock-executor-button svg { flex-shrink: 0; }
+.dock-send-button { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; padding: 0; color: var(--primary-ink); background: var(--primary); border: 1px solid var(--primary); border-radius: 50%; cursor: pointer; }
+.dock-send-button.stop { color: var(--ink); background: var(--surface); border-color: var(--line-strong); }
+.dock-status { color: var(--muted); font-size: 11px; padding-left: 12px; border-left: 1px solid var(--line-strong); }
+.dock-status-dot { width: 6px; height: 6px; background: var(--muted); border-radius: 50%; }
+.dock-status-dot.is-busy { background: var(--green); }
+.capsule-feedback { position: absolute; bottom: calc(100% + 8px); left: 12px; right: 12px; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 14px; color: var(--ink); background: var(--surface); box-shadow: 0 7px 24px var(--glass-shadow); }
+.capsule-feedback.inline-error { color: var(--red); }
+.capsule-dock .slash-command-menu { position: absolute; bottom: calc(100% + 10px); left: 60px; right: 16px; background: var(--surface); }
+.glass-app :focus-visible, .executor-dialog :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+@media (max-width: 1180px) {
+  .capsule-dock { flex-wrap: wrap; gap: 9px 12px; border-radius: 28px; }
+  .capsule-playback { flex: 1 1 150px; }
+  .capsule-dock > .capsule-command { flex-basis: 100%; order: 3; }
+  .assistant-dock > .capsule-command { flex-basis: 0; order: initial; }
+  .capsule-actions { margin-left: auto; }
+  .capsule-import-actions { margin-left: 0; }
+  .glass-content .director-workspace { grid-template-columns: minmax(0, 1fr) 280px; }
+  .glass-content .director-inspector { padding: 16px; margin-right: 16px; }
+}
+@media (max-width: 950px) {
+  .glass-app { padding: 12px; gap: 12px; }
+  .capsule-rail { flex-basis: 70px; width: 70px; padding: 15px 7px 12px; }
+  .glass-header.workspace-header { padding: 10px 16px; }
+  .glass-content .director-header { padding: 8px 20px 14px; }
+  .glass-content .director-header h1 { font-size: 24px; }
+  .glass-content .director-stage-column { padding: 18px; }
+  .glass-content .director-workspace { grid-template-columns: minmax(0, 1fr) 254px; }
+  .glass-content .director-header h1 > span { max-width: 145px; font-size: 12px; }
+  .glass-content .director-project-settings { flex-wrap: wrap; gap: 10px 14px; margin: 0 20px; }
+  .glass-content .director-service-note { margin: 0 20px; }
+  .glass-content .director-style-field { flex-basis: 100%; }
+  .capsule-dock-slot { padding: 8px 12px 12px; }
+  .dock-status { display: none; }
+}
+@media (max-width: 760px) {
+  .glass-app { flex-direction: column; padding: 10px; gap: 10px; }
+  .capsule-rail { align-self: center; width: auto; max-width: 100%; flex: 0 0 auto; max-height: none; flex-direction: row; align-items: center; padding: 5px 10px; border-radius: 36px; }
+  .capsule-nav.primary-nav { flex-direction: row; gap: 2px; min-width: 0; max-width: 100%; overflow-x: auto; }
+  .capsule-nav.primary-nav button { flex: 0 0 52px; width: 52px; min-height: 52px; padding: 6px 3px; gap: 4px; border-radius: 25px; font-size: 10px; }
+  .capsule-nav.primary-nav .capsule-new-project { margin: 0 0 0 6px; padding: 6px 3px; border: 0; border-left: 1px solid var(--line); border-radius: 0; font-size: 9px; }
+  .glass-workspace.workspace-main { width: 100%; }
+  .glass-header.workspace-header { min-height: 58px; padding: 10px 12px; gap: 8px; }
+  .project-switcher { max-width: 53%; }
+  .project-switcher-button { gap: 5px; padding: 7px 4px; font-size: 12px; }
+  .glass-page-label { display: none; }
+  .glass-header-actions { margin-left: auto; gap: 4px; }
+  .glass-assistant-button { padding: 7px; }
+  .glass-assistant-button span { font-size: 11px; }
+  .project-menu { width: min(320px, calc(100vw - 56px)); }
+  .glass-content .director-header { padding: 6px 16px 16px; gap: 10px; flex-wrap: wrap; }
+  .glass-content .director-header h1 { font-size: 23px; }
+  .glass-content .director-workspace { display: flex; flex-direction: column; overflow: visible; }
+  .glass-content .director-content { overflow: auto; }
+  .glass-content .director-stage-column { flex: 0 0 auto; overflow: visible; }
+  .glass-content .director-inspector { overflow: visible; margin: 0 16px 16px; }
+  .glass-content .director-project-settings { margin: 0 16px; }
+  .glass-content .director-service-note { margin: 0 16px; flex-wrap: wrap; }
+  .glass-content .artifacts-view, .glass-content .settings-view { padding: 16px; }
+  .glass-content .executor-settings { padding: 18px; border-radius: 18px; }
+  .capsule-dock-slot { padding: 8px; }
+  .capsule-dock { padding: 9px; gap: 8px; border-radius: 24px; }
+  .capsule-dock .director-button { font-size: 11px; padding: 7px 10px; }
+  .capsule-playback { border-right: 0; padding-right: 0; flex-basis: 100px; }
+  .capsule-command { gap: 7px; }
+  .capsule-command select { max-width: 105px; padding: 8px; font-size: 12px; }
+  .capsule-command input:not([type='range']), .capsule-command textarea { padding: 8px 9px; font-size: 12px; }
+  .assistant-dock .dock-executor-button { max-width: 90px; font-size: 11px; gap: 4px; }
+  .assistant-dock .dock-executor-button > svg:first-child { display: none; }
+  .assistant-dock > .capsule-command { flex-basis: 0; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .capsule-rail, .capsule-dock { background: var(--canvas); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .capsule-rail, .capsule-dock { background: var(--canvas); }
+}
+@media (prefers-reduced-motion: reduce) { .glass-app *, .glass-app *::before, .glass-app *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation-duration: 0s !important; } }
+.capsule-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 50%; text-decoration: none; cursor: pointer; }
+.capsule-icon-button:hover:not(:disabled), .capsule-icon-button.active { border-color: var(--blue); color: var(--blue); }
+.capsule-icon-button.primary { color: var(--primary-ink); background: var(--primary); border-color: var(--primary); }
+.capsule-button, .capsule-confirm-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 8px 14px; color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.5; white-space: nowrap; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 22px; text-decoration: none; cursor: pointer; }
+.capsule-button.primary, .capsule-confirm-button { color: var(--primary-ink); background: var(--primary); border-color: var(--primary); }
+.capsule-dock .video-editor-command > textarea { box-sizing: border-box; height: 42px; min-height: 42px; padding: 10px 12px; }
+html[data-theme='dark'] .capsule-nav.primary-nav button { color: var(--muted); }
+html[data-theme='dark'] .capsule-nav.primary-nav button.is-active { color: var(--ink); background: var(--surface-soft); }
+html[data-theme='dark'] .glass-header .icon-button { color: var(--muted); }
+html[data-theme='dark'] .glass-content .config-fields input { color: var(--ink); background: var(--field); }
+@media (max-width: 760px) { .capsule-button, .capsule-confirm-button { padding: 8px 12px; font-size: 11px; } .capsule-icon-button { width: 36px; height: 36px; } }
+/* Keep one body scroller while resizing; nested stage scrolling can clip its heading. */
+.glass-content .director-content { overflow: auto; }
+.glass-content .director-workspace { flex: none; min-height: 560px; grid-template-rows: auto; align-items: start; overflow: visible; }
+.glass-content .director-stage-column { overflow: visible; }
+.glass-content .director-inspector { overflow: visible; min-height: 440px; }
+.glass-content .director-preview { flex: none; min-height: 285px; height: clamp(285px, 38vh, 438px); }
+.capsule-command select { height: 42px; }
+.capsule-feedback-stack { position: absolute; bottom: calc(100% + 8px); left: 12px; right: 12px; display: flex; flex-direction: column; gap: 8px; }
+.capsule-feedback-stack:empty { display: none; }
+.capsule-feedback-stack > * { margin: 0; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface); box-shadow: 0 7px 24px var(--glass-shadow); }
+.capsule-feedback-stack .composer-attachment { color: var(--ink); background: var(--surface-soft); border-color: var(--line); }
+@media (max-width: 760px) { .director-dock-command .dock-executor-button { max-width: 95px; gap: 4px; font-size: 11px; } .director-dock-command .dock-executor-button > svg:first-child { display: none; } }
+
+/* Override older component colors in both themes without touching media pixels. */
+html[data-theme] :is(.capsule-nav.primary-nav button.is-active, .project-menu .session-item.is-selected) { color: var(--ink); background: var(--surface-soft); }
+html[data-theme] :is(.director-button.primary, .dock-send-button:not(.stop), .capsule-icon-button.primary, .capsule-button.primary, .capsule-confirm-button, .executor-button.primary, .settings-save, .model-preset.is-recommended > button, .dialog-actions button.primary, .dialog-actions button.danger, .send-button:not(.stop):not(:disabled), .video-editor-segment.selected .video-editor-segment-number) { color: var(--primary-ink); background: var(--primary); border-color: var(--primary); }
+html[data-theme] :is(.director-button.primary, .dock-send-button:not(.stop), .capsule-icon-button.primary, .capsule-button.primary, .capsule-confirm-button, .executor-button.primary, .settings-save, .model-preset.is-recommended > button, .dialog-actions button.primary, .dialog-actions button.danger, .send-button:not(.stop)):hover:not(:disabled) { color: var(--primary-ink); background: var(--primary-hover); border-color: var(--primary-hover); }
+html[data-theme] :is(.send-button:disabled, .send-button.stop, .dock-send-button.stop, .dialog-actions button:not(.primary):not(.danger)) { color: var(--ink); background: var(--surface-soft); border-color: var(--line-strong); }
+html[data-theme] .message-body { color: var(--ink); }
+html[data-theme] .role-user .message-body { color: var(--ink); background: var(--surface-soft); border-color: var(--line); }
+html[data-theme] :is(.role-error .message-body, .inline-error) { color: var(--ink); background: var(--surface-soft); border-color: var(--line-strong); }
+html[data-theme] :is(.activity-indicator, .status-error .activity-indicator, .activity-indicator[class*='tool-'], .dialog-icon, .dialog-icon.is-create) { color: var(--ink); background: var(--surface-soft); border-color: var(--line-strong); }
+html[data-theme] :is(.activity-row, .thinking-row, .activity-row strong, .stage-badge, .config-fields label > span, .project-name-field > span) { color: var(--muted); }
+html[data-theme] :is(.stage-badge, .message-body code, .message-body pre, .render-readiness, .artifact-view-switcher, .related-visual-empty, .storyboard-panel > footer button, .artifact-document-list button:hover, .artifact-document-list button.is-selected) { color: var(--ink); background: var(--surface-soft); border-color: var(--line); }
+html[data-theme] :is(.artifact-section-heading h2, .artifact-related-visuals > header span, .structured-field p, .render-readiness-summary strong, .storyboard-description, .media-preview-dialog > header strong) { color: var(--ink); }
+html[data-theme] :is(.structured-field > span, .structured-nested > h4, .artifact-view-switcher button, .artifacts-empty strong, .renders-empty, .renders-empty strong, .render-stage-heading, .render-checkpoint) { color: var(--muted); }
+html[data-theme] :is(.render-stage-heading, .structured-nested > .structured-record) { border-color: var(--line); }
+html[data-theme] .media-preview-dialog { color: var(--ink); background: var(--surface); border-color: var(--line-strong); }
+html[data-theme] .media-preview-dialog > header { border-color: var(--line); }
+html[data-theme] :is(.config-fields input, .model-preset-key input, .project-name-field input) { color: var(--ink); background: var(--field); border-color: var(--line-strong); }
+html[data-theme] :is(.config-fields input, .model-preset-key input, .project-name-field input):focus { border-color: var(--ink); box-shadow: 0 0 0 2px color-mix(in srgb, var(--ink) 12%, transparent); }
+html[data-theme] :is(.config-fields input, .model-preset-key input, .project-name-field input)::placeholder { color: var(--faint); opacity: 1; }
+html[data-theme] :is(.project-menu .session-delete:hover, .dialog-actions button:not(.primary):not(.danger):hover, .artifact-view-switcher button.is-selected) { color: var(--ink); background: var(--surface-soft); }
+html[data-theme] .director-inspector { -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-theme] :is(.director-preview, .video-editor-screen) { color: #eee; background: #292d33; border-color: #454b54; box-shadow: none; }
+html[data-theme] .director-preview-empty > div:first-child { color: #bbb; background: #3f444c; }
+html[data-theme] .director-preview-empty strong { color: #fff; }
+html[data-theme] :is(.director-preview-empty p, .video-editor-empty-preview > svg, .video-editor-empty-preview > p) { color: #bbb; }
+html[data-theme] :is(.director-preview-badge, .director-preview-badge.warning) { color: #fff; background: rgba(0, 0, 0, .8); border-color: #666; }
+html[data-theme] .video-editor-source-preview { color: #bbb; background: #292d33; }
+html[data-theme] .video-editor-source-preview > span { color: #fff; background: rgba(0, 0, 0, .75); }
+html[data-theme] :is(.render-media i, .related-visual-grid > button i) { color: #fff; background: rgba(0, 0, 0, .75); -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-theme] .media-preview-stage { background: #292d33; }
+html[data-theme] :is(.related-visual-grid > button > span, .artifact-thumb) { color: var(--muted); background: var(--surface-soft); border-color: var(--line); }
+html[data-theme] :is(.executor-dialog-backdrop, .dialog-backdrop, .media-preview-backdrop) { background: rgba(0, 0, 0, .45); -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-theme] .status-light.is-ready { background: var(--ink); box-shadow: none; }
+html[data-theme] :is(.status-light.is-partial, .status-light.is-missing, .status-light.is-inactive) { background: var(--line-strong); box-shadow: inset 0 0 0 1px var(--faint); }
+html[data-theme] .status-light.is-generating { background: var(--ink); box-shadow: none; animation: monochrome-status-pulse 1.25s ease-in-out infinite; }
+@keyframes monochrome-status-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* The native layer supplies solid panels; HTML never paints an outer frame. */
+html[data-native='macos'], html[data-native='macos'] body, html[data-native='macos'] #root { background: transparent; }
+html[data-native='macos'] .glass-app { padding-top: 36px; background: transparent; }
+html[data-native='macos'] .glass-app::before { display: none; }
+html[data-native='macos'] .glass-workspace.workspace-main { background: transparent; }
+/* Each capsule has one native glass contour; avoid a second CSS rim and shadow. */
+html[data-native='macos'] .capsule-rail,
+html[data-native='macos'] .capsule-dock { border-color: transparent; background: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-native='macos'][data-reduce-transparency='true'] .capsule-rail,
+html[data-native='macos'][data-reduce-transparency='true'] .capsule-dock { background: var(--canvas); -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* Include portal controls outside the main app shell. */
+html[data-theme] .icon-button { color: var(--muted); border-color: var(--line-strong); }
+html[data-theme] .icon-button:hover { color: var(--ink); background: var(--surface-soft); border-color: var(--line-strong); }
